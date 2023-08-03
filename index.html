@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <script>
+            fetch('http://localhost:8080/test/demo2')
+                .then(res => {
+                    return res.json();
+                })
+                .then(data => {
+                        console.log(data);
+                })
+                .catch(error => console.log(error));
+        </script>
+    </body>
+    <h1> This is my HTML page </h1>
+</html>
