@@ -1,42 +1,64 @@
-<html>
-    <body>
-        <script>
-            // fetch('http://localhost:8080/test/demo2')
-            //    .then(res => {
-            //        return res.json();
-            //    })
-            //    .then(data => {
-            //            console.log(data);
-            //    })
-            //    .catch(error => console.log(error));
-            
-            // fetch('http://localhost:8080/users/get_user_info')
-            //         .then(res => {
-            //             return res.json();
-            //         })
-            //         .then(data => {
-            //                console.log(data); 
-            //         })
-            //         .catch(error => console.log(error));
-            
-            function allnames(){
-                
-                fetch('http://localhost:8080/users/get_first_names')
-                    .then(res => {
-                        
-                        return res.json();
-                    })
-                    .then(data => {
-                        document.getElementById("demo").innerHTML = data;
-                           console.log(data); 
-                    })
-                
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Web Service Assignment</title>
+</head>
+<body>
+    <h1>Twitter Web Service Assignment</h1>
+    <button onclick="getAllTweets()">Get All Tweets</button>
+    <button onclick="getAllUsers()">Get All Users</button>
+    <button onclick="getAllLinks()">Get All Links</button>
+    <input type="text" id="tweetId" placeholder="Enter Tweet ID">
+    <button onclick="getTweetDetails()">Get Tweet Details</button>
+    <input type="text" id="screenName" placeholder="Enter Screen Name">
+    <button onclick="getUserDetails()">Get User Details</button>
+    <div id="output">Results</div>
 
-        </script>   
-    </body>
-    <button onclick="allnames()">All Name</button>
-    <button onclick="myFunction()">Click me1</button>
-    <button onclick="myFunction()">Click me2</button>
-    <h1 id="demo">This is my HTML page </h1>
+    <script>
+        //uses ajax functions
+        function getAllTweets() {               
+            fetch('http://localhost:3000/tweets')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("output").innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+                
+        function getAllUsers() {                
+            fetch('http://localhost:3000/users')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("output").innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+        
+        function getAllLinks() {                
+            fetch('http://localhost:3000/external_links')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("output").innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+        
+        function getTweetDetails() {
+            const tweetId = document.getElementById("tweetId").value;
+            fetch('http://localhost:3000/tweets/' + tweetId)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("output").innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+
+        function getUserDetails() {
+            const screenName = document.getElementById("screenName").value;
+            fetch('http://localhost:3000/users/' + screenName)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("output").innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+    </script>
+</body>
 </html>
